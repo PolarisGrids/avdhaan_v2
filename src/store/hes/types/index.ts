@@ -39,6 +39,8 @@ export type DeviceSubCategoryResponse =
 
 export type PeriodicPushResponse = ResponseBase<PeriodicPushRecord>;
 
+export type DeviceDataResponse = ResponseBase<DeviceInfoRecord>;
+
 export interface CustomAPIError {
   description?: string;
   // Define other properties if needed

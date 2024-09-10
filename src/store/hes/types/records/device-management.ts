@@ -13,7 +13,7 @@ export type DeviceInfoRecord = {
   id: number;
   deviceIdentifier: string;
   deviceIP: string;
-  deviceSerial: 99987704;
+  deviceSerial: string;
   deviceCategory: string;
   deviceSubCategory: string;
   communicationProtocol: string;
