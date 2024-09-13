@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import Checkbox from "@/components/ui/checkbox";
 import { CustomAPIError, DeviceDataResponse, UpdateDevicePayload } from "@/store/hes/types";
 import { DeviceInfoRecord } from "@/store/hes/types/records/device-management";
+import FormCheckbox from "./FormCheckbox";
 
 interface UpdateDeviceFormProps {
   deviceInfo: DeviceInfoRecord;
@@ -24,18 +25,20 @@ const UpdateDeviceForm: FC<UpdateDeviceFormProps> = ({ deviceInfo, formCss, onSu
   const [isSecondarySimChecked, setIsSecondarySimChecked] = useState(true);
 
   const [primarySimInfo, setPrimarySimInfo] = useState({
-    ipv6Address: "",
-    simNo: "",
+    ipv6Address: "FC10:0:298:176C::2",
+    simNo: "SIM_NO_HERE",
   });
 
   const [secondarySimInfo, setSecondarySimInfo] = useState({
-    ipv6Address: "",
-    simNo: "",
+    ipv6Address: "SECONDARY_IPV6_HERE",
+    simNo: "SIM_NO_HERE",
   });
 
   const handleCheckboxChange = (simType: "primary" | "secondary") => {
+    console.log(simType,'st');
     if (simType === "primary") {
       setIsPrimarySimChecked((prev) => !prev);
+      console.log(isPrimarySimChecked,'i');
     } else {
       setIsSecondarySimChecked((prev) => !prev);
     }
@@ -107,7 +110,8 @@ const UpdateDeviceForm: FC<UpdateDeviceFormProps> = ({ deviceInfo, formCss, onSu
   return (
 
     <form onSubmit={handleSubmit} className="flex flex-col gap-4 p-4">
-    <Checkbox
+    <FormCheckbox
+    label="Primary SIM"  
       checked={isPrimarySimChecked}
       onChange={() => handleCheckboxChange("primary")}
     />
@@ -128,7 +132,8 @@ const UpdateDeviceForm: FC<UpdateDeviceFormProps> = ({ deviceInfo, formCss, onSu
       </div>
     )}
 
-    <Checkbox
+    <FormCheckbox
+    label="Secondary SIM "
       checked={isSecondarySimChecked}
       onChange={() => handleCheckboxChange("secondary")}
     />
