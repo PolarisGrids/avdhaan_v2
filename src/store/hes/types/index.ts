@@ -25,6 +25,24 @@ export type ResponseBaseWithOutPagination<T> = {
   };
 };
 
+export interface DeviceSimInfo {
+  tspName: string;
+  simNo: string;
+  imsiNumber: string;
+  iccid: string;
+  ipv6Address: string;
+  port: number;
+}
+
+ export type UpdateDevicePayload = {
+  simDetails: {
+    primarySimInfo?: DeviceSimInfo;
+    secondarySimInfo?: DeviceSimInfo;
+  };
+  communicationProtocol?: string; // Should be "TAP" or "DLMS"
+  deviceIdentifier: string;
+};
+
 export type DeviceMetaInfoMetricsResponse =
   ResponseBaseWithOutPagination<DeviceMetaInfoMetricsRecord>;
 export type LocationHierarchyResponse =
@@ -40,6 +58,8 @@ export type DeviceSubCategoryResponse =
 export type PeriodicPushResponse = ResponseBase<PeriodicPushRecord>;
 
 export type DeviceDataResponse = ResponseBase<DeviceInfoRecord>;
+
+export type DeviceDetailResponse = ResponseBaseWithOutPagination<DeviceInfoRecord>;
 
 export interface CustomAPIError {
   description?: string;

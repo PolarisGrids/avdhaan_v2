@@ -42,6 +42,7 @@ export const {
   useGetDeviceSubCategoryQuery,
   useGetPeriodicPushDataQuery,
   useGetDeviceInfoQuery,
+  useUpdateDeviceInfoMutation,
   usePrefetch
 } = hesApi;
 
