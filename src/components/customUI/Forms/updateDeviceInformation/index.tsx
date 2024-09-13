@@ -25,7 +25,7 @@ const UpdateDeviceForm: FC<UpdateDeviceFormProps> = ({ deviceInfo, formCss, onSu
   const [isSecondarySimChecked, setIsSecondarySimChecked] = useState(true);
 
   const [primarySimInfo, setPrimarySimInfo] = useState({
-    ipv6Address: "FC10:0:298:176C::2",
+    ipv6Address: "PRIMARY_IPV6_HERE",
     simNo: "SIM_NO_HERE",
   });
 
