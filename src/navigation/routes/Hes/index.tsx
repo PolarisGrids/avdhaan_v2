@@ -1,4 +1,3 @@
-import DeviceInformation from '@/pages/hes/deviceInformation/include/DeviceTable';
 import { lazy } from 'react';
 import { Route, Outlet } from 'react-router-dom';
 
@@ -11,7 +10,7 @@ const PeriodicPush = lazy(() => import('@/pages/hes/meter-profile-data/periodic-
 
 const ScheduledReads = lazy(() => import('@/pages/hes/scheduled-reads'));
 const CommandExecution = lazy(() => import('@/pages/hes/command-execution'));
-// const DeviceInformation = lazy(() => import('@pages/hes/deviceInformation/include/DeviceTable'));
+const DeviceInformation = lazy(() => import('@/pages/hes/device-information'));
 
 const HesRoutes = (
   <Route path="/hes" element={<Outlet />}>

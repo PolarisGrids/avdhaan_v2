@@ -30,10 +30,11 @@ export type DeviceInfoRecord = {
   connectionInfo: {
     dcu_address: string;
     meter_address: string;
+    port?:number;
   };
   make: string;
   firmwareVersion: string;
-  simInformation: DeviceSimInfo | null;
+  simInformation: DeviceSimInfo[] | null;
   isRegistered: boolean;
 };
 

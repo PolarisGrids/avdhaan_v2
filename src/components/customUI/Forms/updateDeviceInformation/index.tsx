@@ -4,8 +4,7 @@ import { FC, useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import SubmitButton from "../../Button/SubmitButton";
 import { Input } from "@/components/ui/input";
-import Checkbox from "@/components/ui/checkbox";
-import { CustomAPIError, DeviceDataResponse, UpdateDevicePayload } from "@/store/hes/types";
+import { CustomAPIError, UpdateDevicePayload } from "@/store/hes/types";
 import { DeviceInfoRecord } from "@/store/hes/types/records/device-management";
 import FormCheckbox from "./FormCheckbox";
 
@@ -25,20 +24,18 @@ const UpdateDeviceForm: FC<UpdateDeviceFormProps> = ({ deviceInfo, formCss, onSu
   const [isSecondarySimChecked, setIsSecondarySimChecked] = useState(true);
 
   const [primarySimInfo, setPrimarySimInfo] = useState({
-    ipv6Address: "PRIMARY_IPV6_HERE",
-    simNo: "SIM_NO_HERE",
+    ipv6Address: deviceInfo?.simInformation?.[0]?.ipv6Address,
+    simNo: deviceInfo?.simInformation?.[0]?.simNo,
   });
 
   const [secondarySimInfo, setSecondarySimInfo] = useState({
-    ipv6Address: "SECONDARY_IPV6_HERE",
-    simNo: "SIM_NO_HERE",
+    ipv6Address: deviceInfo?.simInformation?.[1]?.ipv6Address,
+    simNo: deviceInfo?.simInformation?.[1]?.simNo,
   });
 
   const handleCheckboxChange = (simType: "primary" | "secondary") => {
-    console.log(simType,'st');
     if (simType === "primary") {
       setIsPrimarySimChecked((prev) => !prev);
-      console.log(isPrimarySimChecked,'i');
     } else {
       setIsSecondarySimChecked((prev) => !prev);
     }
@@ -73,35 +70,35 @@ const UpdateDeviceForm: FC<UpdateDeviceFormProps> = ({ deviceInfo, formCss, onSu
   const handleSubmit = useCallback(
     (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
-  
+
       const updatePayload: UpdateDevicePayload = {
         simDetails: {
           primarySimInfo: isPrimarySimChecked
             ? {
-                tspName: "TSP_NAME_HERE",
-                simNo: primarySimInfo.simNo,
-                imsiNumber: "IMSI_NUMBER_HERE",
-                iccid: "ICCID_HERE",
-                ipv6Address: primarySimInfo.ipv6Address,
-                port: 4059,
-              }
-            : undefined,
+              tspName: deviceInfo?.simInformation?.[0]?.tspName || "",
+              simNo: primarySimInfo.simNo || "DEFAULT_SIM_NO",
+              imsiNumber: deviceInfo?.simInformation?.[0]?.imsiNumber || "",
+              iccid: deviceInfo?.simInformation?.[0]?.iccid || "",
+              ipv6Address: primarySimInfo.ipv6Address || "",
+              port: deviceInfo?.connectionInfo?.port || Number(),
+            }
+            : null,
           secondarySimInfo: isSecondarySimChecked
             ? {
-                tspName: "SECONDARY_TSP_NAME_HERE",
-                simNo: secondarySimInfo.simNo,
-                imsiNumber: "SECONDARY_IMSI_NUMBER_HERE",
-                iccid: "SECONDARY_ICCID_HERE",
-                ipv6Address: secondarySimInfo.ipv6Address,
-                port: 5432,
-              }
-            : undefined,
+              tspName: deviceInfo?.simInformation?.[1]?.tspName || "",
+              simNo: secondarySimInfo.simNo || "DEFAULT_SIM_NO",
+              imsiNumber: deviceInfo?.simInformation?.[1]?.imsiNumber || "",
+              iccid: deviceInfo?.simInformation?.[1]?.iccid || "",
+              ipv6Address: secondarySimInfo.ipv6Address || "",
+              port: deviceInfo?.connectionInfo?.port || Number(),
+            }
+            : null,
         },
-        communicationProtocol: "TAP", 
+        communicationProtocol: "TAP",
         deviceIdentifier: "POL99987709",
       };
 
-  
+
       handleUpdateDevice(updatePayload);
     },
     [isPrimarySimChecked, primarySimInfo, isSecondarySimChecked, secondarySimInfo, handleUpdateDevice]
@@ -110,53 +107,53 @@ const UpdateDeviceForm: FC<UpdateDeviceFormProps> = ({ deviceInfo, formCss, onSu
   return (
 
     <form onSubmit={handleSubmit} className="flex flex-col gap-4 p-4">
-    <FormCheckbox
-    label="Primary SIM"  
-      checked={isPrimarySimChecked}
-      onChange={() => handleCheckboxChange("primary")}
-    />
-    {isPrimarySimChecked && (
-      <div className="grid grid-cols-2 gap-4">
-        <Input
-          placeholder="Primary SIM IPv6 Address"
-          value={primarySimInfo.ipv6Address}
-          onChange={(e) => handleSimInfoChange(e, "primary", "ipv6Address")}
-          disabled={!isPrimarySimChecked}
-        />
-        <Input
-          placeholder="Primary SIM Serial No."
-          value={primarySimInfo.simNo}
-          onChange={(e) => handleSimInfoChange(e, "primary", "simNo")}
-          disabled={!isPrimarySimChecked}
-        />
-      </div>
-    )}
+      <FormCheckbox
+        label="Primary SIM"
+        checked={isPrimarySimChecked}
+        onChange={() => handleCheckboxChange("primary")}
+      />
+      {isPrimarySimChecked && (
+        <div className="grid grid-cols-2 gap-4">
+          <Input
+            placeholder="Primary SIM IPv6 Address"
+            value={primarySimInfo.ipv6Address}
+            onChange={(e) => handleSimInfoChange(e, "primary", "ipv6Address")}
+            disabled={!isPrimarySimChecked}
+          />
+          <Input
+            placeholder="Primary SIM Serial No."
+            value={primarySimInfo.simNo}
+            onChange={(e) => handleSimInfoChange(e, "primary", "simNo")}
+            disabled={!isPrimarySimChecked}
+          />
+        </div>
+      )}
 
-    <FormCheckbox
-    label="Secondary SIM "
-      checked={isSecondarySimChecked}
-      onChange={() => handleCheckboxChange("secondary")}
-    />
-    {isSecondarySimChecked && (
-      <div className="grid grid-cols-2 gap-4">
-        <Input
-          placeholder="Secondary SIM IPv6 Address"
-          value={secondarySimInfo.ipv6Address}
-          onChange={(e) => handleSimInfoChange(e, "secondary", "ipv6Address")}
-          disabled={!isSecondarySimChecked} 
-        />
-        <Input
-          placeholder="Secondary SIM Serial No."
-          value={secondarySimInfo.simNo}
-          onChange={(e) => handleSimInfoChange(e, "secondary", "simNo")}
-          disabled={!isSecondarySimChecked} 
-        />
-      </div>
-    )}
+      <FormCheckbox
+        label="Secondary SIM "
+        checked={isSecondarySimChecked}
+        onChange={() => handleCheckboxChange("secondary")}
+      />
+      {isSecondarySimChecked && (
+        <div className="grid grid-cols-2 gap-4">
+          <Input
+            placeholder="Secondary SIM IPv6 Address"
+            value={secondarySimInfo.ipv6Address}
+            onChange={(e) => handleSimInfoChange(e, "secondary", "ipv6Address")}
+            disabled={!isSecondarySimChecked}
+          />
+          <Input
+            placeholder="Secondary SIM Serial No."
+            value={secondarySimInfo.simNo}
+            onChange={(e) => handleSimInfoChange(e, "secondary", "simNo")}
+            disabled={!isSecondarySimChecked}
+          />
+        </div>
+      )}
 
-    <SubmitButton title="Update" disabled={isLoading} />
-  </form>
-);
+      <SubmitButton title="Update" disabled={isLoading} />
+    </form>
+  );
 };
 
 export default UpdateDeviceForm

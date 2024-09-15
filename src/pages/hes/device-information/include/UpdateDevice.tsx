@@ -40,9 +40,9 @@ const UpdateDevice: FC<UpdateDeviceProps> = ({ data, cb }) => {
                 </div>
             }>
                 <UpdateDeviceForm
-                 deviceInfo={data}
-                 onSubmitCb={handleSubmit}
-                 />
+                    deviceInfo={data}
+                    onSubmitCb={handleSubmit}
+                />
             </Suspense>
         </BaseModal>
     )

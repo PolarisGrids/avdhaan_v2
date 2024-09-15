@@ -36,8 +36,8 @@ export interface DeviceSimInfo {
 
  export type UpdateDevicePayload = {
   simDetails: {
-    primarySimInfo?: DeviceSimInfo;
-    secondarySimInfo?: DeviceSimInfo;
+    primarySimInfo?: DeviceSimInfo | null;
+    secondarySimInfo?: DeviceSimInfo | null;
   };
   communicationProtocol?: string; // Should be "TAP" or "DLMS"
   deviceIdentifier: string;
