@@ -80,7 +80,7 @@ const UpdateDeviceForm: FC<UpdateDeviceFormProps> = ({ deviceInfo, formCss, onSu
               imsiNumber: deviceInfo?.simInformation?.[0]?.imsiNumber || "",
               iccid: deviceInfo?.simInformation?.[0]?.iccid || "",
               ipv6Address: primarySimInfo.ipv6Address || "",
-              port: deviceInfo?.connectionInfo?.port || Number(),
+              port: deviceInfo?.connectionInfo?.port || 0,
             }
             : null,
           secondarySimInfo: isSecondarySimChecked
@@ -90,7 +90,7 @@ const UpdateDeviceForm: FC<UpdateDeviceFormProps> = ({ deviceInfo, formCss, onSu
               imsiNumber: deviceInfo?.simInformation?.[1]?.imsiNumber || "",
               iccid: deviceInfo?.simInformation?.[1]?.iccid || "",
               ipv6Address: secondarySimInfo.ipv6Address || "",
-              port: deviceInfo?.connectionInfo?.port || Number(),
+              port: deviceInfo?.connectionInfo?.port || 0,
             }
             : null,
         },
@@ -116,13 +116,13 @@ const UpdateDeviceForm: FC<UpdateDeviceFormProps> = ({ deviceInfo, formCss, onSu
         <div className="grid grid-cols-2 gap-4">
           <Input
             placeholder="Primary SIM IPv6 Address"
-            value={primarySimInfo.ipv6Address}
+            value={primarySimInfo.ipv6Address || ''}
             onChange={(e) => handleSimInfoChange(e, "primary", "ipv6Address")}
             disabled={!isPrimarySimChecked}
           />
           <Input
             placeholder="Primary SIM Serial No."
-            value={primarySimInfo.simNo}
+            value={primarySimInfo.simNo || ''}
             onChange={(e) => handleSimInfoChange(e, "primary", "simNo")}
             disabled={!isPrimarySimChecked}
           />
@@ -138,13 +138,13 @@ const UpdateDeviceForm: FC<UpdateDeviceFormProps> = ({ deviceInfo, formCss, onSu
         <div className="grid grid-cols-2 gap-4">
           <Input
             placeholder="Secondary SIM IPv6 Address"
-            value={secondarySimInfo.ipv6Address}
+            value={secondarySimInfo.ipv6Address || ''}
             onChange={(e) => handleSimInfoChange(e, "secondary", "ipv6Address")}
             disabled={!isSecondarySimChecked}
           />
           <Input
             placeholder="Secondary SIM Serial No."
-            value={secondarySimInfo.simNo}
+            value={secondarySimInfo.simNo || ''}
             onChange={(e) => handleSimInfoChange(e, "secondary", "simNo")}
             disabled={!isSecondarySimChecked}
           />
