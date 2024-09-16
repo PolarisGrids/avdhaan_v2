@@ -59,7 +59,6 @@ const UpdateDeviceForm: FC<UpdateDeviceFormProps> = ({ deviceInfo, formCss, onSu
       navigate('/device-management');
     } catch (error) {
       const errorMsg = error as CustomAPIError;
-      console.log(errorMsg, 'err');
       toast({
         variant: "destructive",
         title: "Uh oh! Something went wrong.",
