@@ -1,11 +1,11 @@
 import UpdateDeviceForm from '@/components/customUI/Forms/updateDeviceInformation';
 import Spinner from '@/components/customUI/Loaders/Spinner';
 import BaseModal from '@/components/customUI/Modals';
-import { DeviceInfoRecord } from '@/store/hes/types/records/device-management';
-import { FC, useCallback, useState, lazy, Suspense } from 'react'
+import { DeviceDetailRecord } from '@/store/hes/types/records/device-information';
+import { FC, useCallback, useState, Suspense } from 'react'
 
 interface UpdateDeviceProps {
-    data: DeviceInfoRecord;
+    data: DeviceDetailRecord;
     cb?: () => void
 }
 

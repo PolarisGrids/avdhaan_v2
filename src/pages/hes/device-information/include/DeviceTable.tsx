@@ -11,7 +11,7 @@ import Button from "@/components/ui/button";
 import CaretLeft from "@/components/svg/CaretLeft";
 import CaretRight from "@/components/svg/CaretRight";
 import UpdateDevice from "./UpdateDevice";
-import { DeviceInfoRecord } from "@/store/hes/types/records/device-management";
+import { DeviceDetailRecord } from "@/store/hes/types/records/device-information";
 
 
 const DeviceInformation = () => {
@@ -44,7 +44,7 @@ const DeviceInformation = () => {
     [setPageCursor]
   );
 
-  const deviceActions: ActionType<DeviceInfoRecord>[] = [
+  const deviceActions: ActionType<DeviceDetailRecord>[] = [
     {
       element: UpdateDevice,
       actionCb: refetch,

@@ -9,15 +9,6 @@ export type LocationHierarchyRecord = {
   device_identifier?: Option[];
 };
 
-export interface DeviceSimInfo {
-  tspName: string;
-  simNo: string;
-  imsiNumber: string;
-  iccid: string;
-  ipv6Address: string;
-  port: number;
-}
-
 export type DeviceInfoRecord = {
   id: number;
   deviceIdentifier: string;
@@ -30,14 +21,12 @@ export type DeviceInfoRecord = {
   connectionInfo: {
     dcu_address: string;
     meter_address: string;
-    port?:number;
   };
   make: string;
   firmwareVersion: string;
-  simInformation: DeviceSimInfo[] | null;
+  simInformation: string;
   isRegistered: boolean;
 };
-
 
 
 export type DeviceMetaInfoMetricsRecord = {

@@ -4,12 +4,12 @@ import { FC, useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import SubmitButton from "../../Button/SubmitButton";
 import { Input } from "@/components/ui/input";
-import { CustomAPIError, UpdateDevicePayload } from "@/store/hes/types";
-import { DeviceInfoRecord } from "@/store/hes/types/records/device-management";
+import { CustomAPIError } from "@/store/hes/types";
 import FormCheckbox from "./FormCheckbox";
+import { DeviceDetailRecord, UpdateDevicePayload } from "@/store/hes/types/records/device-information";
 
 interface UpdateDeviceFormProps {
-  deviceInfo: DeviceInfoRecord;
+  deviceInfo: DeviceDetailRecord;
   formCss?: string;
   onSubmitCb?: () => void;
 }
@@ -59,6 +59,7 @@ const UpdateDeviceForm: FC<UpdateDeviceFormProps> = ({ deviceInfo, formCss, onSu
       navigate('/device-management');
     } catch (error) {
       const errorMsg = error as CustomAPIError;
+      console.log(errorMsg, 'err');
       toast({
         variant: "destructive",
         title: "Uh oh! Something went wrong.",
