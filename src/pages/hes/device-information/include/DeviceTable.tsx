@@ -12,26 +12,38 @@ import CaretLeft from "@/components/svg/CaretLeft";
 import CaretRight from "@/components/svg/CaretRight";
 import UpdateDevice from "./UpdateDevice";
 import { DeviceDetailRecord } from "@/store/hes/types/records/device-information";
-
+import { useCallback, useEffect, useState } from "react";
+import UpdateDevice from "./UpdateDevice";
+import { DeviceDetailRecord } from "@/store/hes/types/records/device-information";
+import CursorPagination from "@/components/customUI/CursorPagination";
+import { useSelector } from "@/store";
 
 const DeviceInformation = () => {
 
   const { search } = useLocation();
   const [pageCursor, setPageCursor] = useState('');
+  const searchQuery = `${search ? `${search}&` : "?" }${pageCursor}`;
+  const mainFilterLoading = useSelector(state => state.hes.mainFilterLoading);
 
   const {
     data: response, isLoading,
     isFetching, isError, error, refetch
   } = useGetDeviceInfoQuery({
-    searchQuery: `${search}${pageCursor}`
-  });
+    searchQuery: searchQuery
+  }, { skip: mainFilterLoading });
 
   const cursor = response?.data?.cursor || { after: null, before: null };
+
+  useEffect(() => {
+    if(mainFilterLoading){
+      setPageCursor("")
+    }
+  }, [ mainFilterLoading, setPageCursor ])
 
   const getNewRecords = useCallback(
     (val: string | null | undefined) => {
       if (!val) return;
-      setPageCursor(`afterCursor=${val}`);
+      setPageCursor(`before_cursor=${val}`);
     },
     [setPageCursor]
   );
@@ -39,16 +51,16 @@ const DeviceInformation = () => {
   const getOldRecords = useCallback(
     (val: string | null | undefined) => {
       if (!val) return;
-      setPageCursor(`beforeCursor=${val}`);
+      setPageCursor(`after_cursor=${val}`);
     },
     [setPageCursor]
   );
 
   const deviceActions: ActionType<DeviceDetailRecord>[] = [
     {
-      element: UpdateDevice,
-      actionCb: refetch,
+      element: UpdateDevice, actionCb: refetch,
     }
+    { element: UpdateDevice, actionCb: refetch }
   ]
 
   const columns = useGetTableColumns({
@@ -94,6 +106,16 @@ const DeviceInformation = () => {
         )}
 
       </div>
+        {!isFetching && !isError && (
+          <CursorPagination
+            afterCursor={response.data.cursor.after}
+            beforeCursor={response.data.cursor.before}
+            disabled={isFetching}
+            customCss="self-end"
+            getOldRecords={getOldRecords}
+            getNewRecords={getNewRecords}
+          />
+        )}
     </div>
   )
 }

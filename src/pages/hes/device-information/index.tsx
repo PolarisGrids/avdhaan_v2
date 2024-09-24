@@ -11,9 +11,7 @@ const DeviceData = () => {
           </h1>
         </div>
         <HesFilters />
-        <div className="overflow-x-scroll">
-          <DeviceInformation />
-        </div>
+        <DeviceInformation />
       </div>
     </div>
   );

@@ -11,7 +11,7 @@ interface UpdateDeviceProps {
 
 const ButtonLogo = () => {
     return <img
-        src="/public/assets/images/other/edit.png"
+        src="/assets/images/other/edit.png"
         alt="" height="auto"
         style={{ maxWidth: 20 }}
     />

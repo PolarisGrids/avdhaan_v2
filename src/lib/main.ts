@@ -19,7 +19,7 @@ export const sidebarLinkData = [
 ];
 
 export const navbarLinkData = [
-  { to: '/hes/', title: 'Dashboard' },
+  { to: '/hes', title: 'Dashboard' },
   { to: '/hes/scheduled-reads', title: 'Scheduled Reads' },
   {
     to: '/hes/meter-profile-data',
@@ -40,4 +40,5 @@ export const navbarLinkData = [
   },
   { to: '/hes/command-execution', title: 'Command Execution' },
   { to: '/hes/device-information', title: 'Device Information' },
+  { to: '/hes/configure-command', title: 'Configure Command ' },
 ];

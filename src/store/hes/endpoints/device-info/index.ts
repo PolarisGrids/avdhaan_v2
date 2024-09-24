@@ -26,8 +26,6 @@ export const DeviceInfoEndpoints = (
     providesTags: ["Device"],
     keepUnusedDataFor: CACHING_TIME,
   }),
-
-
   updateDeviceInfo: builder.mutation<void, UpdateDevicePayload>({
     query: (data) => ({
       url: `device-management/update-device`,

@@ -7,6 +7,11 @@ import { Input } from "@/components/ui/input";
 import { CustomAPIError } from "@/store/hes/types";
 import FormCheckbox from "./FormCheckbox";
 import { DeviceDetailRecord, UpdateDevicePayload } from "@/store/hes/types/records/device-information";
+import FormCheckbox from "./FormCheckbox";
+import { DeviceDetailRecord, UpdateDevicePayload } from "@/store/hes/types/records/device-information";
+import { cn } from "@/lib/utils";
+import { CustomHesApiError } from "@/store/hes/types/other";
+
 
 interface UpdateDeviceFormProps {
   deviceInfo: DeviceDetailRecord;
@@ -53,7 +58,7 @@ const UpdateDeviceForm: FC<UpdateDeviceFormProps> = ({ deviceInfo, formCss, onSu
 
   const handleUpdateDevice = useCallback(async (apiPayload: UpdateDevicePayload) => {
     try {
-      await updateDeviceInfo(apiPayload);
+      await updateDeviceInfo(apiPayload).unwrap();
       toast({ variant: "default", description: "Device updated successfully" });
       if (onSubmitCb) return onSubmitCb();
       navigate('/device-management');
@@ -105,8 +110,7 @@ const UpdateDeviceForm: FC<UpdateDeviceFormProps> = ({ deviceInfo, formCss, onSu
 
   );
   return (
-
-    <form onSubmit={handleSubmit} className="flex flex-col gap-4 p-4">
+    <form onSubmit={handleSubmit} className={cn("flex flex-col gap-4 p-4", formCss)}>
       <FormCheckbox
         label="Primary SIM"
         checked={isPrimarySimChecked}
