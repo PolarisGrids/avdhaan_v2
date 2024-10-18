@@ -49,7 +49,39 @@ export const navbarLinkData = [
       { to: '/hes/command/command-execution', title: 'Command Execution' }
     ]
   },
-  { to: '/hes/alarms', title: 'Alarms' },
+  { to: '/hes/alarms', title: 'Alarms' ,
+  children: [
+    {
+      to: '/hes/alarms/voltage-events',
+      title: 'Voltage Events'
+    },
+    {
+      to: '/hes/alarms/current-events',
+      title: 'Current Events'
+    },
+    {
+      to: '/hes/alarms/power-related-events',
+      title: 'Power Related Events'
+    },
+  {
+    to: '/hes/alarms/non-roll-over-events',
+    title: 'Non Roll Over Events'
+  },
+  {
+    to: '/hes/alarms/control-events',
+    title: 'Control Events'
+  },
+  {
+    to: '/hes/alarms/other-&-additional-events',
+    title: 'Other & Additional Events'
+  },
+  {
+    to: '/hes/alarms/transactional-events',
+    title: 'Transactional Events'
+  },
+  ]
+  },
+  { to: '/hes/command-execution', title: 'Command Execution' },
   { to: '/hes/device-information', title: 'Device Information' },
   { to: '/hes/configure-command', title: 'Configure Command ' }
 ];

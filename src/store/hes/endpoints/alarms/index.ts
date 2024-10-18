@@ -5,8 +5,9 @@ import {
   FetchBaseQueryMeta
 } from '@reduxjs/toolkit/query';
 import { BaseQueryFn } from '@reduxjs/toolkit/query';
-import { RestorationOccuranceMetricsRecord } from '../../types/records/alarms';
-import { RestorationOccuranceMetricsResponse } from '../../types';
+import { AlarmEventsGraphRecord, RestorationOccuranceMetricsRecord } from '../../types/records/alarms';
+import { AlarmEventsGraphResponse, AlarmEventsResponse, RestorationOccuranceMetricsResponse } from '../../types';
+import { CACHING_TIME } from '@/store/utils';
 
 export const alarmsEndPoints = (
   builder: EndpointBuilder<
@@ -34,5 +35,22 @@ export const alarmsEndPoints = (
       const data = response.data.records;
       return data;
     }
-  })
+  }),
+  
+  getAlarmsEventDetails: builder.query<AlarmEventsResponse, { searchQuery: string }>({
+    query: ({ searchQuery }) => ({
+      url: `push-data/pull-events/list-view${searchQuery}`,
+      method: "GET",
+    }),
+    providesTags: ["AlarmEvents"],
+    keepUnusedDataFor: CACHING_TIME,
+  }),
+
+  getAlarmsEventGraphs: builder.query<AlarmEventsGraphResponse, { searchQuery: string }>({
+    query: ({ searchQuery }) => ({
+      url: `push-data/pull-events/piechart-view${searchQuery}`,
+      method: "GET",
+    }),  
+  }),
+
 });

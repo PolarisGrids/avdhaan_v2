@@ -23,7 +23,7 @@ import { ScheduledCommandRecord } from './records/reports';
 import { ConfigureCommandRecord } from './records/configure-command';
 import { HESAuthToken } from './records/login';
 import { DownloadCSVRecord } from './records/download-csv';
-import { RestorationOccuranceMetricsRecord } from './records/alarms';
+import { AlarmEventsGraphRecord, AlarmEventsRecord, RestorationOccuranceMetricsRecord } from './records/alarms';
 
 export type HesAPIError = {
   errorMsg: string;
@@ -104,6 +104,10 @@ export type DownloadCSVResponse =
 export type HESTokenResponse = ResponseBaseWithOutPagination<HESAuthToken>;
 export type RestorationOccuranceMetricsResponse =
   ResponseBaseWithOutPagination<RestorationOccuranceMetricsRecord>;
+
+export type AlarmEventsResponse = ResponseBaseWithOutPagination<AlarmEventsRecord>
+
+export type AlarmEventsGraphResponse= ResponseBaseWithOutPagination<AlarmEventsGraphRecord>
 
 export type UploadCSVFileResponse =
   ResponseBaseWithOutPagination<UploadCSVFileRecord>;

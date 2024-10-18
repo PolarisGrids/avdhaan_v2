@@ -1,3 +1,4 @@
+
 export type RestorationOccuranceMetricsRecord = {
   name: string;
   occurenceCount: number;
@@ -12,3 +13,21 @@ export type AlarmsQueryParams = {
   from?: string;
   sub_category?: number;
 };
+
+export type AlarmEventsRecord = {
+  deviceIdentifier: string,
+  eventTime: string,
+  eventCode: number,
+  eventName: string,
+  status: string,
+  noOfdaysFromOpenedStatus: number
+}
+
+export interface AlarmEventsGraphRecord {
+  [key: string]: number; 
+}
+
+export interface GraphData {
+  categories: string[];
+  series: ApexAxisChartSeries;
+}

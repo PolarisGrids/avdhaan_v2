@@ -81,6 +81,8 @@ export const {
   useUploadCSVfileMutation,
   useLazyDownloadCSVDataQuery,
   useGetRestorationOccuranceMetricsQuery,
+  useGetAlarmsEventDetailsQuery,
+  useGetAlarmsEventGraphsQuery,
   usePrefetch
 } = hesApi;
 
